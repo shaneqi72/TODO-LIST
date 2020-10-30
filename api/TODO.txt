@@ -1,0 +1,9 @@
+Require functionality
+
+- View current todos
+- Add new todos
+- Edit todo items
+- Complete todo items
+- Delete todo items
+- View complete todos
+- View incomplete todos

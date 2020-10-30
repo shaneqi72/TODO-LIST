@@ -1,0 +1,12 @@
+TASKS PART 1
+
+1. Complete the rest of the todo functions:
+ - Add 
+ - Complete
+ - Remove
+ - Filter completed/all/uncompleted
+
+2. Refactor api & frontend completed don't use string use boolean
+ - e.g. "true" => true, "false" => false
+
+TASKS PART 2
