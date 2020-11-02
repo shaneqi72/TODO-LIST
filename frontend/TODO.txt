@@ -10,3 +10,8 @@ TASKS PART 1
  - e.g. "true" => true, "false" => false
 
 TASKS PART 2
+
+- Don't allow empty todo---done
+- Practice solving logic questions 2 a day
+- Connect todo frontend with todo api
+  - Hint use fetch

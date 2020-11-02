@@ -37,7 +37,10 @@ function addToDo(e) {
     completed: false
   };
 
-  TODOS.push(newTodo);
+  if (newTodo.task.length > 0) {
+    TODOS.push(newTodo);
+  }
+  
 
   refreshTodos();
 }
