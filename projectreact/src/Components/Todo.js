@@ -6,17 +6,41 @@ const Todo = ({ text, todos, setTodos, todo }) => {
     const completeHandler = () => {
         todos.map((item) => {
             if (item.id === todo.id) {
-                setTodos([...item, {
-                    complete: !item.complete
-                }])
+                fetch(`http://localhost:4001/todos/${item.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(item)
+                })
+                    .then(() => {
+                        setTodos([...todos, {
+                            complete: !item.complete
+                        }])
+                    })
+                    .catch((err) => console.log(err))
             }
             return item;
         });
     };
 
     const deleteHandler = () => {
-        todos.fiter((item) => {
-            return item.id !== todo.id
+        todos.map((item) => {
+            if (item.id === todo.id) {
+                fetch(`http://localhost:4001/todos/${e.target.dataset.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(() => {
+                        todos.fiter((item) => {
+                            return item.id !== todo.id
+                        })
+                    })
+            }
+            return item;
         })
     };
 

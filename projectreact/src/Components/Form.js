@@ -11,9 +11,29 @@ const Form = ({ todos, setTodos, inputText, setInputText, status, setStatus }) =
 
     const submitHandler = (e) => {
         e.preventdefault();
-        setTodos([...todos, {
-            text: inputText, complete: false, id: Math.random() * 100
-        }])
+
+        const newTodo = {
+            id: Math.random() * 100,
+            text: inputText,
+            complete: false
+        };
+
+        if (newTodo.text.length > 0) {
+            fetch('http://localhost:4001/todos', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newTodo)
+            })
+                .then(() => {
+                    setTodos([...todos, newTodo])
+                })
+                .catch((err) => console.log(err))
+
+        };
+
         setInputText('');
     };
 

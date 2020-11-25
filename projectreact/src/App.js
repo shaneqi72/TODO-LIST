@@ -8,7 +8,20 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [inputText, setInputText] = useState('');
   const [status, setStatus] = useState('all');
-  const [filteredTodos, setFilterTodos] = useState([])
+  const [filteredTodos, setFilterTodos] = useState([]);
+
+  function getTodos() {
+    fetch('http://localhost:4001/todos')
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Error')
+        }
+        return res.json();
+      })
+      .then((fetchTodos) => {
+        setTodos([...todos, fetchTodos])
+      });
+  }
 
   const filterHandler = () => {
     switch (status) {
@@ -26,7 +39,8 @@ function App() {
 
   useEffect(() => {
     filterHandler();
-  }, [status])
+    getTodos();
+  }, [status, todos])
 
 
   return (
@@ -42,6 +56,8 @@ function App() {
 
 export default App;
 
+
+//Below is for reference ONLY
 // ***************************************************************************************************************************************************************************************
 function getTodos() {
   fetch('http://localhost:4001/todos')
