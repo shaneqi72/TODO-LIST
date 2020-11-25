@@ -28,7 +28,7 @@ const Todo = ({ text, todos, setTodos, todo }) => {
     const deleteHandler = () => {
         todos.map((item) => {
             if (item.id === todo.id) {
-                fetch(`http://localhost:4001/todos/${e.target.dataset.id}`, {
+                fetch(`http://localhost:4001/todos/${todo.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'

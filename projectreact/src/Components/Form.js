@@ -5,7 +5,7 @@ import '../App.css'
 
 const Form = ({ todos, setTodos, inputText, setInputText, status, setStatus }) => {
 
-    const inputTextHandler = (e) => {
+    const handleTextChange = (e) => {
         setInputText(e.target.value)
     };
 
@@ -14,8 +14,8 @@ const Form = ({ todos, setTodos, inputText, setInputText, status, setStatus }) =
 
         const newTodo = {
             id: Math.random() * 100,
-            text: inputText,
-            complete: false
+            task: inputText,
+            completed: false
         };
 
         if (newTodo.text.length > 0) {
@@ -45,7 +45,7 @@ const Form = ({ todos, setTodos, inputText, setInputText, status, setStatus }) =
     return (
         <div>
             <form action="">
-                <input className='todo-input' type="text" value={inputText} onChange={inputTextHandler} />
+                <input className='todo-input' type="text" value={inputText} onChange={handleTextChange} />
                 <button className='todo-button' type='submit' onClick={submitHandler} ><i className='fas fa-plus-square'></i></button>
                 <div className='select'>
                     <select className='filter-todo' onChange={statusChangeHandler} name="todos">
@@ -54,7 +54,6 @@ const Form = ({ todos, setTodos, inputText, setInputText, status, setStatus }) =
                         <option value="uncompleted">uncompleted</option>
                     </select>
                 </div>
-
             </form>
         </div>
     )

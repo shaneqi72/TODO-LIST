@@ -3,9 +3,9 @@ import '../App.css'
 import Todo from './Todo'
 
 
-const TodoList = ({ todos, setTodos, filteredTodos }) => {
+const TodoList = ({ todos, setTodos }) => {
     const updatedTodos = () => {
-        filteredTodos.map((todo) => {
+        todos.map((todo) => {
             return (<Todo key={todo.id} text={todo.text} todos={todos} setTodos={setTodos} todo={todo} />)
         })
     }
@@ -13,7 +13,7 @@ const TodoList = ({ todos, setTodos, filteredTodos }) => {
     return (
         <div className='todo-container'>
             <ul className='todo-list'>
-                {updatedTodos}
+                {updatedTodos()}
             </ul>
         </div>
     )
