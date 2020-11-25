@@ -21,8 +21,26 @@ let filter = 'all';
 
 
 //Logic Layer
+// function addTodo(e) {
+//     e.preventDefault();
+//     const newTodo = 
+//     {
+//         id: `${TODOS.length}`,
+//         task: todoInput.value,
+//         completed: false
+//     };
+
+//     if (todoInput.length > 0) {
+//         TODOS.push(newTodo)
+//     };
+    
+//     refreshTodos();
+// }
+
+//********************************** ***********************/
 function addTodo(e) {
     e.preventDefault();
+
     const newTodo = 
     {
         id: `${TODOS.length}`,
@@ -34,6 +52,23 @@ function addTodo(e) {
         TODOS.push(newTodo)
     };
     
+
+    fetch('http://localhost:4001/todos', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, plain/text, */*',
+            'Content-Type': 'applicaton/json'
+        },
+        body: JSON.stringify(newTodo)
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach((user) => {
+            
+        })
+    })
+
+
     refreshTodos();
 }
 
@@ -47,6 +82,8 @@ function completeTodo (e) {
 
     refreshTodos();
 }
+
+//***************************************** */
 
 function removeTodo (e) {
     const clickIndex = TODOS.findIndex((todo) => todo.id === e.target.dataset.id);

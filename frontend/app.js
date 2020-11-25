@@ -1,3 +1,5 @@
+// const { json } = require("express");
+
 //Select DOM
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
@@ -5,28 +7,32 @@ const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 
 //Event Listeners
-document.addEventListener("DOMContentLoaded", refreshTodos);
+document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addToDo);
 // todoList.addEventListener("click", removeTodo);
 //filterOption.addEventListener("click", filterTodo);
 
 // DATA Layer
-const TODOS = [
-  {
-    id: "abc",
-    task: "Learn CSS",
-    completed: true
-  },
-  {
-    id: "wer",
-    task: "Learn JS",
-    completed: false
-  }
-];
+
+let TODOS = [];
 
 let filter = 'all';
 
 // LOGIC LAYER
+
+function getTodos() {
+  fetch('http://localhost:4001/todos')
+  .then((res) => {
+    if (!res.ok) {
+      throw Error('Error')
+    } 
+    return res.json();
+  })
+  .then((todos) => {
+    TODOS = todos;
+    refreshTodos();
+  });
+}
 
 function addToDo(e) {
   e.preventDefault();
@@ -40,13 +46,23 @@ function addToDo(e) {
   if (newTodo.task.length > 0) {
     TODOS.push(newTodo);
   }
-  
 
-  refreshTodos();
+  fetch('http://localhost:4001/todos', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newTodo)
+  })
+  .then(() => {
+    getTodos();
+  })
+  .catch((err) => console.log(err))
 }
 
 function completeTodo(e) {
-  
+
   const clickedIndex = TODOS.map((todo) => todo.id).indexOf(e.target.dataset.id);
 
   if (TODOS[clickedIndex].completed === false) {
@@ -55,29 +71,41 @@ function completeTodo(e) {
     TODOS[clickedIndex].completed = false;
   }
 
-  // More elegant solution
-  // TODOS[clickedIndex].completed = !TODOS[clickedIndex].completed;
-
-  // Using ternaries
-  // TODOS[clickedIndex].completed = (TODOS[clickedIndex].completed ? false : true);
-
-  refreshTodos();
+  fetch(`http://localhost:4001/todos/${e.target.dataset.id}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(TODOS[clickedIndex])
+  })
+  .then(() => {
+    getTodos()
+  })
+  .catch((err) => console.log(err))
 }
 
 function removeTodo(e) {
-  const clickedIndex = TODOS.findIndex((todo) => todo.id === e.target.dataset.id);
-
-  console.log(clickedIndex);
-
-  TODOS.splice(clickedIndex, 1);
-  
-  refreshTodos();
+  fetch(`http://localhost:4001/todos/${e.target.dataset.id}`, {
+    method: 'DELETE',
+    headers: {
+    'Content-Type': 'application/json'
+    }
+  })
+  .then(() => {
+    getTodos();
+  })
 }
 
 function filterTodo (e) {
   filter = e.target.value;
 
-  refreshTodos();
+  fetch('http://localhost:4001/todos')
+  .then((res) => res.json())
+  .then((todos) => {
+    // getTodos();
+  })
+  .catch((err) => console.log(err))
 }
 
 ///////////// UI LOGIC BELOW ///////////////
@@ -92,6 +120,7 @@ function refreshTodos() {
     switch (filter) {
       case 'all':
         return true;
+        console.log('all');
       case 'completed':
         return todo.completed === true;
       case 'uncompleted':
