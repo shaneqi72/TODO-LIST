@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const Form = ({ todos, setTodos }) => {
+const Form = ({ refreshTodos, status, setStatus }) => {
 
     const [inputText, setInputText] = useState('')
 
@@ -9,14 +9,14 @@ const Form = ({ todos, setTodos }) => {
         setInputText(e.target.value)
     };
 
-    const newTodo = {
-        id: `${todos.length}`,
-        task: inputText,
-        completed: false
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const newTodo = {
+            id: `${Date.now()}`,
+            task: inputText,
+            completed: false
+        };
 
         if (newTodo.task.length > 0) {
             fetch('http://localhost:4001/todos', {
@@ -28,18 +28,30 @@ const Form = ({ todos, setTodos }) => {
                 body: JSON.stringify(newTodo)
             })
                 .then(() => {
-                    setTodos([...todos, newTodo])
+                    refreshTodos();
                 })
                 .catch((err) => console.log(err))
 
         };
         setInputText('');
+    };
+
+    const handleChange = (e) => {
+        setStatus(e.target.value);
     }
+
 
     return (
         <div>
             <input type="text" value={inputText} onChange={handleInputText} />
             <button type='submit' onClick={handleSubmit}>+</button>
+            <div>
+                <select onChange={handleChange} name="todos" >
+                    <option value="all">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="uncompleted">Uncompleted</option>
+                </select>
+            </div>
         </div>
     )
 };

@@ -5,6 +5,7 @@ import Form from './Components/Form'
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [status, setStatus] = useState('all')
 
   const getTodos = () => {
     fetch('http://localhost:4001/todos')
@@ -15,19 +16,25 @@ function App() {
         return res.json();
       })
       .then((todos) => {
-        setTodos(todos)
+        setTodos(todos);
       });
   }
 
   useEffect(() => {
     getTodos()
-  }, [])
+  }, []);
+
+
 
   return (
     <div className='App'>
       <h1>Todo List</h1>
-      <Form todos={todos} setTodos={setTodos} />
-      <TodoList todos={todos} />
+      <Form status={status} setStatus={setStatus} refreshTodos={getTodos} />
+      <TodoList
+        todos={todos}
+        refreshTodos={getTodos}
+        status={status}
+      />
     </div>
   );
 }
