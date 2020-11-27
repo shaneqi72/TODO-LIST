@@ -15,8 +15,8 @@ toDoRouter.get('/todos', (req, res) => {
     let currentTodos = readTodos();
     const completed = req.query.completed;
 
-    if(completed) {
-        currentTodos = currentTodos.filter((task) => task.completed === completed);   
+    if (completed) {
+        currentTodos = currentTodos.filter((task) => task.completed === completed);
     }
 
     res.send(currentTodos);
@@ -53,8 +53,8 @@ toDoRouter.post('/todos', (req, res) => {
         };
 
         currentTodos.push(newTodo);
-        
-        writeTodos(currentTodos);        
+
+        writeTodos(currentTodos);
 
         res.json(newTodo);
     }
@@ -66,7 +66,7 @@ toDoRouter.put('/todos/:id', (req, res) => {
     const currentTodos = readTodos();
     const updatedTodos = currentTodos.find((task) => task.id === req.params.id);
 
-    if(updatedTodos) {
+    if (updatedTodos) {
         updatedTodos.task = req.body.task;
         updatedTodos.completed = req.body.completed;
     } else {
@@ -81,12 +81,12 @@ toDoRouter.put('/todos/:id', (req, res) => {
 });
 
 
-toDoRouter.delete('/todos/:id', (req, res) => {    
+toDoRouter.delete('/todos/:id', (req, res) => {
     const currentTodos = readTodos();
     const updatedTodos = currentTodos.filter((task) => task.id !== req.params.id);
-    
+
     writeTodos(updatedTodos);
-    
+
     res.json({
         message: `To do item ${req.params.id} has been deleted`
     });

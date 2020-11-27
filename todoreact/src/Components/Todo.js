@@ -33,7 +33,7 @@ const Todo = ({ todo, refreshTodos }) => {
 
     return (
         <div>
-            <li>{todo.task}</li>
+            <li style={{ textDecoration: todo.completed ? 'line-through' : '' }}>{todo.task}</li>
             <button onClick={deleteTodo}>delete</button>
             <button onClick={completeTodo}>complete</button>
         </div>
