@@ -1,10 +1,11 @@
 import React from 'react';
-import Todo from './Todo'
+import Todo from './Todo';
+import '../App.css'
 
 const TodoList = ({ todos, status, refreshTodos }) => {
 
     return (
-        <div>
+        <div className='todo-list'>
             {todos.map((todo, index) => {
                 return (
                     <Todo

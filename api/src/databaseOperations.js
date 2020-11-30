@@ -3,7 +3,7 @@ const fs = require('fs');
 const DATABASE_FILE = './data/database.json';
 
 const readTodos = () => {
-    if(!fs.existsSync(DATABASE_FILE)) {
+    if (!fs.existsSync(DATABASE_FILE)) {
         return [];
     }
 
@@ -11,7 +11,7 @@ const readTodos = () => {
 }
 
 const writeTodos = (newTodos) => {
-    if(!fs.existsSync('./data')) {
+    if (!fs.existsSync('./data')) {
         fs.mkdirSync('./data');
     }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../App.css'
 
 
 const Form = ({ refreshTodos, status, setStatus }) => {
@@ -41,12 +42,11 @@ const Form = ({ refreshTodos, status, setStatus }) => {
     }
 
 
-
     return (
-        <div>
+        <div className='form'>
             <input type="text" value={inputText} onChange={handleInputText} />
             <button type='submit' onClick={handleSubmit}>+</button>
-            <div>
+            <div className='filter-status'>
                 <select onChange={handleChange} name="todos" >
                     <option value="all">All</option>
                     <option value="completed">Completed</option>

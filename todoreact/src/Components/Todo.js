@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import '../App.css'
 
 const Todo = ({ todo, refreshTodos }) => {
 
@@ -32,10 +33,10 @@ const Todo = ({ todo, refreshTodos }) => {
     };
 
     return (
-        <div>
-            <li style={{ textDecoration: todo.completed ? 'line-through' : '' }}>{todo.task}</li>
-            <button onClick={deleteTodo}>delete</button>
-            <button onClick={completeTodo}>complete</button>
+        <div className='todo'>
+            <li className='todo-task' style={{ textDecoration: todo.completed ? 'line-through' : '' }}>{todo.task}</li>
+            <button className='delete-btn' onClick={deleteTodo}>delete</button>
+            <button className='complete-btn' onClick={completeTodo}>complete</button>
         </div>
     )
 };

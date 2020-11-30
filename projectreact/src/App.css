@@ -13,7 +13,6 @@
     font-size: 2rem;
   }
   
-  header,
   form {
     min-height: 20vh;
     display: flex;

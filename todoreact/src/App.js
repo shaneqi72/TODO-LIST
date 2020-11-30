@@ -7,7 +7,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState('all')
 
-  const getTodos = () => {
+  const getTodos = (status) => {
     fetch('http://localhost:4001/todos')
       .then((res) => {
         if (!res.ok) {
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>Todo List</h1>
+      <h1 className='title'>Todo List</h1>
       <Form status={status} setStatus={setStatus} refreshTodos={getTodos} />
       <TodoList
         todos={todos}
