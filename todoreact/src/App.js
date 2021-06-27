@@ -1,49 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import TodoList from './Components/TodoList';
-import Form from './Components/Form'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import TodoList from "./Components/TodoList";
+import Form from "./Components/Form";
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [status, setStatus] = useState('all')
+  const [status, setStatus] = useState("all");
 
   const getTodos = (status) => {
-    fetch('http://localhost:4001/todos')
+    fetch("http://localhost:4003/todos")
       .then((res) => {
         if (!res.ok) {
-          throw Error('Error')
+          throw Error("Error");
         }
         return res.json();
       })
       .then((todos) => {
         switch (status) {
-          case 'completed':
+          case "completed":
             setTodos(todos.filter((todo) => todo.completed === true));
             break;
-          case 'uncompleted':
+          case "uncompleted":
             setTodos(todos.filter((todo) => todo.completed === false));
             break;
           default:
             setTodos(todos);
-            break
+            break;
         }
       });
   };
 
   useEffect(() => {
-    getTodos()
+    getTodos(status);
   }, [status]);
 
-
   return (
-    <div className='App'>
-      <h1 className='title'>Todo List</h1>
+    <div className="App">
+      <h1 className="title">Todo List</h1>
       <Form status={status} setStatus={setStatus} refreshTodos={getTodos} />
-      <TodoList
-        todos={todos}
-        refreshTodos={getTodos}
-        status={status}
-      />
+      <TodoList todos={todos} refreshTodos={getTodos} status={status} />
     </div>
   );
 }

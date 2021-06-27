@@ -30,11 +30,19 @@
   margin-top: 15px;
 }
 
-.delete-btn,
-.complete-btn {
+.btn {
+  padding: 2px 5px;
   margin: 0.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+}
+.complete-btn {
+  background: cyan;
 }
 
 .todo-task {
@@ -42,5 +50,15 @@
   flex: 0.4
 }
 
+.addtodo-btn {
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 10px;
+  margin-left: 5px;
+}
+
+/* .status-slector {
+  cursor: pointer;
+} */
 
 
